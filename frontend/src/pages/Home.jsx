@@ -73,19 +73,7 @@ export default function Home({ activeFilter = 'all', lang = 'ta' }) {
           placeholder="செய்திகளை தேடு"
           className="input"
         />
-        <select value={limit} onChange={(e) => setLimit(Number(e.target.value))} className="select">
-          {[25, 50, 100, 150, 200].map((n) => (
-            <option key={n} value={n}>{n}</option>
-          ))}
-        </select>
-        <div className="view-toggle">
-          <button className={view==='grid'?'toggle active':'toggle'} onClick={()=>setView('grid')} title="கட்டம்">
-            ⬜⬜
-          </button>
-          <button className={view==='list'?'toggle active':'toggle'} onClick={()=>setView('list')} title="பட்டியல்">
-            ≡
-          </button>
-        </div>
+        
       </div>
 
       {loading && <Loader />}
@@ -97,7 +85,7 @@ export default function Home({ activeFilter = 'all', lang = 'ta' }) {
           {!filtered.length && <div className="empty">No results</div>}
           {!!filtered.length && (
             view === 'grid' ? (
-              <div className="grid five">
+              <div className="grid four">
                 {filtered.map((item) => (
                   <NewsCard key={item.id} item={item} variant="grid" />
                 ))}
@@ -109,6 +97,13 @@ export default function Home({ activeFilter = 'all', lang = 'ta' }) {
                 ))}
               </div>
             )
+          )}
+          {!!filtered.length && (
+            <div style={{display:'flex', justifyContent:'center', marginTop: 16}}>
+              <button className="button" onClick={()=> setLimit(limit + 50)} title="மேலும் செய்திகள்">
+                மேலும் செய்திகள்
+              </button>
+            </div>
           )}
         </>
       )}
