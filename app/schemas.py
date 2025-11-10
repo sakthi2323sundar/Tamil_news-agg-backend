@@ -8,6 +8,7 @@ class NewsResponse(BaseModel):
     url: str
     source: str
     summary: str | None = None
+    image_url: str | None = None
     language: str
     published_at: datetime | None = None
     created_at: datetime

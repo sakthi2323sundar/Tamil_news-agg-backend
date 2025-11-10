@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from app.database import Base, engine
+from app.database import Base, engine, ensure_schema
+from app import models  # Ensure models are registered before create_all
 from app.api import news_routes, admin_routes
 from app.scheduler import start_scheduler
 import logging
@@ -35,6 +36,7 @@ def root():
 def startup_event():
     logger.info("🚀 Tamil News Aggregator starting... Initializing DB and scheduler.")
     try:
+        ensure_schema()
         Base.metadata.create_all(bind=engine)
         logger.info("✅ Database tables created or verified.")
     except Exception as e:
